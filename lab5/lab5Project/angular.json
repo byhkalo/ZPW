@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "lab4-project": {
+    "lab5Project": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/lab4-project",
+            "outputPath": "dist/lab5Project",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -57,19 +57,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "lab4-project:build",
-            "port" : 5000
+            "browserTarget": "lab5Project:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "lab4-project:build:production"
+              "browserTarget": "lab5Project:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "lab4-project:build"
+            "browserTarget": "lab5Project:build"
           }
         },
         "test": {
@@ -103,7 +102,7 @@
         }
       }
     },
-    "lab4-project-e2e": {
+    "lab5Project-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "prefix": "",
@@ -112,11 +111,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "lab4-project:serve"
+            "devServerTarget": "lab5Project:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "lab4-project:serve:production"
+              "devServerTarget": "lab5Project:serve:production"
             }
           }
         },
@@ -132,5 +131,5 @@
       }
     }
   },
-  "defaultProject": "lab4-project"
+  "defaultProject": "lab5Project"
 }
