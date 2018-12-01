@@ -1,3 +1,19 @@
-<p>
-  search-sorting works!
-</p>
+<div class="row col-xl-12"> 
+    <div class="col-xl-2">
+        <button type="button" class="btn btn-primary">Reset</button>
+    </div>
+    <div class="col-xl-4">
+        <input type="text" class="form-control" value="Searching">
+    </div>
+    <div class="col-xl-4">
+            <!-- Example single danger button -->
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{sortingType.title}}
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <button *ngFor="let sort of sortingTypes" class="dropdown-item" (click)="sort.action()">{{sort.title}}</button>
+            </div>
+        </div>
+    </div>
+</div>

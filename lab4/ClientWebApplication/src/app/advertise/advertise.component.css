@@ -1,0 +1,8 @@
+.advertise {
+    display: inline-block;
+    background-color: brown;
+    color: beige;
+    /* margin: auto; */
+    width: 100%;
+    text-align: center;
+}

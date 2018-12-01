@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,10 +24,19 @@ import { ProductComponent } from './product/product.component';
     ProductComponent
   ],
   imports: [
+    NgbModule.forRoot(),
     BrowserModule,
     AppRoutingModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    ProductsComponent,
+    MainShopComponentComponent,
+    AdvertiseComponent,
+    HeaderShopComponent,
+    SearchSortingComponent,
+    FiltersComponent,
+    ProductComponent]
 })
 export class AppModule { }
