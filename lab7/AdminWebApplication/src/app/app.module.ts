@@ -12,6 +12,18 @@ import { CategoryComponent } from './category/category.component';
 import { ProductsMenuComponent } from './products-menu/products-menu.component';
 import { OrdersMenuComponent } from './orders-menu/orders-menu.component';
 
+import { Ng5SliderModule } from 'ng5-slider';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
+import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+import { OrdersComponent } from './orders/orders.component';
+import { OrderComponent } from './order/order.component';
+import { AuthGuard } from 'src/services/auth.guard';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,13 +34,22 @@ import { OrdersMenuComponent } from './orders-menu/orders-menu.component';
     ProductComponent,
     CategoryComponent,
     ProductsMenuComponent,
-    OrdersMenuComponent
+    OrdersMenuComponent,
+    MainDashboardComponent,
+    OrdersComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    Ng5SliderModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
