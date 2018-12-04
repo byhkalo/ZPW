@@ -23,7 +23,7 @@ export class ProductsService {
     private allCategories: Map<String, Boolean> = new Map();
     allCategoriesObservable = new BehaviorSubject(this.allCategories);
     // Count Range Properties
-    private selectedCountRange: { minValue: Number } = { minValue: 0 };
+    private selectedCountRange: { minValue: Number, maxValue: Number } = { minValue: 0, maxValue: 0 };
     selectCountRangeObservable = new BehaviorSubject(this.selectedCountRange);
     // Price Range Properties
     private selectedPriceRange: { minValue: Number, maxValue: Number } = { minValue: 0, maxValue: 1000000 };
@@ -51,6 +51,10 @@ export class ProductsService {
         this.allCategories.set('Monitors', true);
         this.allCategories.set('Accesories', true);
         this.sortedProductsObservable.next(this.sortedProducts);
+        this.selectedPriceRange.maxValue = this.maxPrice();
+        this.selectedPriceRange.minValue = this.minPrice();
+        this.selectedCountRange.maxValue = this.maxCount();
+        this.selectedCountRange.minValue = this.minCount();
     }
     // Searching
     getSearchingWord(): BehaviorSubject<String> {
@@ -88,30 +92,38 @@ export class ProductsService {
         this.sortFilterProducts();
     }
     // Count Range
-    maxCount(): Number {
+    maxCount(): number {
         var maxCount = this.allProducts[0].count
         this.allProducts.forEach(element => {
             if (maxCount < element.count) { maxCount = element.count; }
         });
         return maxCount;
     }
-    getSelectedCountRangeObservable(): BehaviorSubject<{minValue: Number}> {
+    minCount(): number {
+        var minCount = this.allProducts[0].count
+        this.allProducts.forEach(element => {
+            if (minCount > element.count) { minCount = element.count; }
+        });
+        return minCount;
+    }
+    getSelectedCountRangeObservable(): BehaviorSubject<{minValue: Number, maxValue: Number}> {
         return this.selectCountRangeObservable;
     }
-    setMinCountRange(minCount: Number) {
+    setCountRange(minCount: Number, maxCount: Number) {
         this.selectedCountRange.minValue = minCount;
+        this.selectedCountRange.maxValue = maxCount;
         this.selectCountRangeObservable.next(this.selectedCountRange);
         this.sortFilterProducts();
     }
     // Price Range
-    maxPrice(): Number {
+    maxPrice(): number {
         var maxPrice = this.allProducts[0].price;
         this.allProducts.forEach(element => {
             if (maxPrice < element.price) { maxPrice = element.price; }
         });
         return maxPrice;
     }
-    minPrice(): Number {
+    minPrice(): number {
         var minPrice = this.allProducts[0].price;
         this.allProducts.forEach(element => {
             if (minPrice > element.price) { minPrice = element.price; }
@@ -186,7 +198,8 @@ export class ProductsService {
                 return false;
             }
             //Check Count
-            if (!(element.count >= this.selectedCountRange.minValue)) {
+            if (!(element.count >= this.selectedCountRange.minValue 
+                && element.count <= this.selectedCountRange.maxValue)) {
                 return false;
             }
             //Check Price

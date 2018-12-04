@@ -15,6 +15,7 @@ import { BasketComponent } from './basket/basket.component';
 import { OrderComponent } from './order/order.component';
 import { BasketProductComponent } from './basket-product/basket-product.component';
 import { ProductsService } from 'src/services/product.service';
+import { Ng5SliderModule } from 'ng5-slider';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProductsService } from 'src/services/product.service';
   ],
   imports: [
     NgbModule.forRoot(),
+    Ng5SliderModule,
     BrowserModule,
     AppRoutingModule
   ],

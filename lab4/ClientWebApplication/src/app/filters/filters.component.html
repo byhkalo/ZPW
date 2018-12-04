@@ -1,7 +1,7 @@
 <div class="row col-xl-12"> 
         
         
-    <div class="row">
+    <div class="row col-12">
         <div class="card border-info mb-3" style="max-width: 18rem;">
             <div class="card-header">Categories</div>
             <div class="card-body text-info">
@@ -13,28 +13,20 @@
         </div>
     </div>
     
-    <div class="row">
+    <div class="row col-12">
         <div class="card border-info mb-3" style="max-width: 18rem;">
             <div class="card-header">Filters</div>
             <div class="card-body text-info">
                 <div class="row">
-                    <h5 class="card-title"> Min Stars Count </h5>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{minStar}}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button *ngFor="let star of [1, 2, 3, 4, 5]" class="dropdown-item" (click)="filterByMinStarsCount(star)">{{star}}</button>
-                        </div>
-                    </div>
+                    
                 </div>
                 <h5 class="card-title">Count</h5>
                 <div class="row">
-                    <input type="range" multiple value="0,80" />
+                    <ng5-slider [(value)]="currentMinCountBorder" [(highValue)]="currentMaxCountBorder" [options]="optionsCount"></ng5-slider>
                 </div>
                 <h5 class="card-title">Price</h5>
                 <div class="row">
-                    <input type="range" multiple value="10,80" />
+                    <ng5-slider [(value)]="currentMinPriceBorder" [(highValue)]="currentMaxPriceBorder" [options]="optionsPrice"></ng5-slider>
                 </div>
                 <div class="row">
                     <h5 class="card-title"> Pagination </h5>

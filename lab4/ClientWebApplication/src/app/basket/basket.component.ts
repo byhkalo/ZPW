@@ -33,6 +33,8 @@ export class BasketComponent implements OnInit {
   }
 
   makeOrder() {
-    
+    if (this.totalCount > 0) {
+      
+    }
   }
 }
