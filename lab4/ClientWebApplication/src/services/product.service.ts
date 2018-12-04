@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Product } from '../models/product';
 import { SortType } from '../models/sortType';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({ providedIn: 'root' })
 export class ProductsService {
@@ -45,7 +46,10 @@ export class ProductsService {
     allPaginationTypesObservable = new BehaviorSubject(this.allPaginationTypes);
     selectedPaginationTypeObservable = new BehaviorSubject(this.selectedPaginationType);
 
-    constructor() { 
+    constructor(fireDatabase: AngularFireDatabase) { 
+        fireDatabase.list<Product>('products').valueChanges().subscribe(databaseProducts => {
+            this.allProducts = databaseProducts;
+        });
         this.allCategories.set('Smartphones', true);
         this.allCategories.set('Laptops', true);
         this.allCategories.set('Monitors', true);

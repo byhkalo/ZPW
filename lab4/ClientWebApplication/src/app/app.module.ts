@@ -15,7 +15,14 @@ import { BasketComponent } from './basket/basket.component';
 import { OrderComponent } from './order/order.component';
 import { BasketProductComponent } from './basket-product/basket-product.component';
 import { ProductsService } from 'src/services/product.service';
+
 import { Ng5SliderModule } from 'ng5-slider';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -35,7 +42,12 @@ import { Ng5SliderModule } from 'ng5-slider';
     NgbModule.forRoot(),
     Ng5SliderModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule,
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [ProductsService],
   bootstrap: [
