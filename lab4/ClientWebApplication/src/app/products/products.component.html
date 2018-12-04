@@ -1,10 +1,6 @@
-<div class="row col-xl-12"> 
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Products</h4>  
-            <div class="row">
-                <app-product class="col-md-3" [product]="p" *ngFor="let p of products"></app-product>
-            </div> 
-        </div>
-    </div>
+<div class="row col-12"> 
+    <div *ngFor="let p of presentedProducts"> {{p.name}}</div>
+    <div class="row">
+        <app-product class="col-6" *ngFor="let p of presentedProducts" [product]="p"></app-product>
+    </div> 
 </div>

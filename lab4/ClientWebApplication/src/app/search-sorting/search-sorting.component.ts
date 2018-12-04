@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductsService } from 'src/services/product.service';
+import { SortType } from '../../models/sortType';
 
 @Component({
   host: {'class':'col-xl-12'},
@@ -7,47 +9,38 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./search-sorting.component.css']
 })
 export class SearchSortingComponent implements OnInit {
-  sortingType = { title: 'Name Ascending',
-                  action: this.sortingByNameAscending };
-  sortingTypes = [
-    { title: 'Price Low to top',
-      action: this.sortingByPriceLowToTop }, 
-    { title: 'Price Top to Low',
-    action: this.sortingByPriceTopToLow }, 
-    { title: 'Name Ascending',
-    action: this.sortingByNameAscending }, 
-    { title: 'Name Descending',
-    action: this.sortingByNameDescending } 
-  ];
-  constructor() { }
+  
+  sortingType: SortType;
+  sortingTypes: Array<SortType>;
+  searchWord: String = '';
+
+  constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-  }
-  sortingByPriceTopToLow() {
-    this.sortingByPrice(true)
-  }
-  sortingByPriceLowToTop() {
-    this.sortingByPrice(false)
-  }
-  sortingByNameAscending() {
-    this.sortingByName(true)
-  }
-  sortingByNameDescending() {
-    this.sortingByName(false)
+    this.productsService.getAllSortingTypesObservable().subscribe(sortingTypes => {
+      this.sortingTypes = sortingTypes;
+    });
+    this.productsService.getSelectedSortingTypeObservable().subscribe(sortingType => {
+      this.sortingType = sortingType;
+    });
+    this.productsService.getSearchingWord().subscribe(searchWord => {
+      this.searchWord = searchWord;
+    })
   }
 
-  private sortingByPrice(topToLow: Boolean): void {
-      if (topToLow) {
-        this.sortingType = this.sortingTypes[1];
-      } else {
-        this.sortingType = this.sortingTypes[0];
-      }
+  searchBy(searchWord: String) {
+    console.log('searchWord ' + searchWord);
+    this.productsService.setSearchingWord(searchWord);
+    console.log('searchWord ' + searchWord);
   }
-  private sortingByName(isAscending: Boolean): void {
-    if (isAscending) {
-      this.sortingType = this.sortingTypes[2];
-    } else {
-      this.sortingType = this.sortingTypes[3];
-    }
+
+  sortingBy(sortType: SortType) {
+    this.productsService.setSortType(sortType); 
+    console.log('sort type ' + sortType.title);
+  }
+  resetSorting() {
+    console.log('reset sorting');
+    this.productsService.setSearchingWord('');
+    this.productsService.setSortType(this.sortingTypes[0]);
   }
 }

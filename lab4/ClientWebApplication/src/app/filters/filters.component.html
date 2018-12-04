@@ -1,12 +1,14 @@
 <div class="row col-xl-12"> 
+        
+        
     <div class="row">
         <div class="card border-info mb-3" style="max-width: 18rem;">
             <div class="card-header">Categories</div>
             <div class="card-body text-info">
-                <h5 class="card-title"><input type="checkbox" value="" id="defaultCheck1">Smartphones</h5>
-                <h5 class="card-title"><input type="checkbox" value="" id="defaultCheck1">Laptops</h5>
-                <h5 class="card-title"><input type="checkbox" value="" id="defaultCheck1">Monitors</h5>
-                <h5 class="card-title"><input type="checkbox" value="" id="defaultCheck1">Accesorises</h5>
+                <h5 *ngFor="let category of categoriesArray" class="card-title">
+                    <input type="checkbox" [checked]="categories.get(category)" (change)="changeCategory(category, $event)" >
+                    {{category}}
+                </h5>
             </div>
         </div>
     </div>
@@ -26,8 +28,14 @@
                         </div>
                     </div>
                 </div>
-                <h5 class="card-title"><input type="checkbox" value="" id="defaultCheck1">Count</h5>
-                <h5 class="card-title"><input type="checkbox" value="" id="defaultCheck1">Price</h5>
+                <h5 class="card-title">Count</h5>
+                <div class="row">
+                    <input type="range" multiple value="0,80" />
+                </div>
+                <h5 class="card-title">Price</h5>
+                <div class="row">
+                    <input type="range" multiple value="10,80" />
+                </div>
                 <div class="row">
                     <h5 class="card-title"> Pagination </h5>
                     <div class="dropdown">

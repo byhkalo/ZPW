@@ -1,0 +1,12 @@
+<div class="row col-12"> 
+  <div class="row col-12">
+    <app-basket-product class="col-12" *ngFor="let p of basketProducts" [product]="p"></app-basket-product>
+  </div> 
+  <div class="row col-12">
+    Total SUM: {{totalSum}} | Total Count: {{totalCount}}
+  </div>
+  <div class="row col-12">
+    <button class="btn btn-primary" (click)="continueShopping()">Continue shopping</button>
+    <button class="btn btn-primary" (click)="makeOrder()">Order</button>
+  </div>
+</div>

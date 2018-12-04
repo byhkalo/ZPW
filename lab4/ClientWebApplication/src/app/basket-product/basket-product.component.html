@@ -1,0 +1,10 @@
+<div class="card col-12">
+  <div class="row">
+    <div class="col-2"><img class="card-img-top" height="50" width="50"  src="{{product.imageUrl}}" alt="Card image cap"></div>
+      
+      Name: {{product.name}} | Count: {{product.count}} | Price: {{product.price}} | TotalPrice: {{product.price * product.count}} | 
+      <button class="btn btn-primary" (click)="removeOneFromBasket()">Remove 1</button>
+      <button class="btn btn-primary" (click)="addOneToBasket()">Add 1</button>
+      <button class="btn btn-primary" (click)="deleteFromBasket()">Delete</button>
+  </div>
+</div>

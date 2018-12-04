@@ -1,3 +1,10 @@
-<p>
-  product works!
-</p>
+<div class="card col-12">
+  <img class="card-img-top" height="100"  src="{{product.imageUrl}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{product.name}}</h5>
+    <p class="card-text">Product Count: {{ product.count }}</p>
+    <p class="card-text">Product Price: {{ product.price }}</p>
+    <button class="btn btn-primary" (click)="removeOneProduct()">-</button>
+    <button class="btn btn-primary" (click)="addOneProduct()">+</button>
+  </div>
+</div>
