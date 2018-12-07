@@ -2,17 +2,19 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
 import { LoginComponent } from './login/login.component';
-import { OrdersMenuComponent } from './orders-menu/orders-menu.component';
 import { OrdersComponent } from './orders/orders.component';
 import { ProductsComponent } from './products/products.component';
 import { AuthGuard } from 'src/services/auth.guard';
+import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
+import { ProductsTableComponent } from './products-table/products-table.component';
 
 const routes: Routes = [
-  { path: "", redirectTo: "dashboard", pathMatch: "full" },
+  // { path: "", redirectTo: "dashboard", pathMatch: "full" },
   { path: "login", component: LoginComponent},
+  { path: "ordersDashboard", component: OrdersDashboardComponent },
+  { path: "productsDashboard", component: ProductsTableComponent },
   { path: "dashboard", component: MainDashboardComponent,
     canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     children: [
       { path: "", redirectTo: "orders", pathMatch: "full" },
       { path: "orders", component: OrdersComponent },

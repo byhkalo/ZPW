@@ -24,6 +24,14 @@ import { OrdersComponent } from './orders/orders.component';
 import { OrderComponent } from './order/order.component';
 import { AuthGuard } from 'src/services/auth.guard';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSidenavModule } from '@angular/material/sidenav'
+import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatRippleModule} from '@angular/material';
+import { BaseNavigationComponent } from './base-navigation/base-navigation.component';
+import { LayoutModule } from '@angular/cdk/layout';
+import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
+import { ProductsTableComponent } from './products-table/products-table.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +45,10 @@ import { AuthGuard } from 'src/services/auth.guard';
     OrdersMenuComponent,
     MainDashboardComponent,
     OrdersComponent,
-    OrderComponent
+    OrderComponent,
+    BaseNavigationComponent,
+    OrdersDashboardComponent,
+    ProductsTableComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +58,24 @@ import { AuthGuard } from 'src/services/auth.guard';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    BrowserAnimationsModule,
+    MatSidenavModule,
+    MatButtonModule, 
+    MatCheckboxModule, 
+    LayoutModule, 
+    MatToolbarModule, 
+    MatIconModule, 
+    MatListModule, 
+    MatGridListModule, 
+    MatCardModule, 
+    MatMenuModule, 
+    MatTableModule, 
+    MatPaginatorModule, 
+    MatSortModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRippleModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]
