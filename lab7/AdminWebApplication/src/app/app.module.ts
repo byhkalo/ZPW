@@ -26,11 +26,52 @@ import { AuthGuard } from 'src/services/auth.guard';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav'
-import {MatButtonModule, MatCheckboxModule, MatToolbarModule, MatIconModule, MatListModule, MatGridListModule, MatCardModule, MatMenuModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatRippleModule} from '@angular/material';
 import { BaseNavigationComponent } from './base-navigation/base-navigation.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { OrdersDashboardComponent } from './orders-dashboard/orders-dashboard.component';
-import { ProductsTableComponent } from './products-table/products-table.component';
+import { ProductsTableComponent, PromotionDialog } from './products-table/products-table.component';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkTableModule} from '@angular/cdk/table';
+import {
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+  MatFormFieldModule,
+} from '@angular/material';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -48,7 +89,8 @@ import { ProductsTableComponent } from './products-table/products-table.componen
     OrderComponent,
     BaseNavigationComponent,
     OrdersDashboardComponent,
-    ProductsTableComponent
+    ProductsTableComponent,
+    PromotionDialog
   ],
   imports: [
     BrowserModule,
@@ -60,24 +102,58 @@ import { ProductsTableComponent } from './products-table/products-table.componen
     AngularFireAuthModule,
     AngularFireStorageModule,
     BrowserAnimationsModule,
-    MatSidenavModule,
-    MatButtonModule, 
-    MatCheckboxModule, 
+
     LayoutModule, 
-    MatToolbarModule, 
-    MatIconModule, 
-    MatListModule, 
-    MatGridListModule, 
-    MatCardModule, 
-    MatMenuModule, 
-    MatTableModule, 
-    MatPaginatorModule, 
-    MatSortModule,
+    
     MatFormFieldModule,
+    CdkTableModule,
+    DragDropModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
     MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
     MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+    ScrollingModule,    
+
+    FormsModule,
+    NgxMaterialTimepickerModule.forRoot(),
   ],
+  
   providers: [AuthGuard],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    PromotionDialog,
+    ProductComponent
+  ]
 })
 export class AppModule { }

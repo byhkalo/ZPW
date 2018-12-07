@@ -1,3 +1,78 @@
-<p>
-  product works!
-</p>
+
+<h2 mat-dialog-title>Product</h2>
+<mat-dialog-content >
+
+<mat-grid-list cols="3" rowHeight="500px">
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-card class="dashboard-card">
+      <mat-card-header>
+        <mat-card-title>
+          Product Image
+        </mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="dashboard-card-content">
+        <div>
+          <img src="{{product.imageUrl}}" height="auto" width="100%" alt="">
+          <!-- <img  src="https://images.pexels.com/photos/257840/pexels-photo-257840.jpeg" alt=""> -->
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Product Description
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="Name" value="{{product.name}}">
+            </mat-form-field>
+          
+            <mat-form-field class="example-full-width">
+              <textarea matInput placeholder="Description">{{product.description}}</textarea>
+            </mat-form-field>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+    <mat-grid-tile [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            Product Store Info
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <div>Category</div>
+          <mat-form-field>
+              <mat-select placeholder="Category" [(value)]="productCategory">
+                <mat-option *ngFor="let category of categories" [value]="product.category">
+                  {{category.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          <div>Count</div>
+          <mat-form-field class="example-margin">
+              <input matInput type="number" placeholder="Discount" step="1" [(ngModel)]="productCount">
+          </mat-form-field>
+          <div>Price</div>
+          <mat-form-field class="example-margin">
+              <input matInput type="number" placeholder="Discount" step="0.1" [(ngModel)]="productPrice">
+          </mat-form-field>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+
+
+
+</mat-grid-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">Update Info</button>
+</mat-dialog-actions>

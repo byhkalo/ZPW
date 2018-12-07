@@ -35,8 +35,12 @@ const EXAMPLE_DATA: ProductsTableItem[] = [
 
 
 export class ProductsTableDS extends MatTableDataSource<ProductsTableItem> {
-  constructor(paginator: MatPaginator, sort: MatSort) {
-    super(EXAMPLE_DATA);
+  constructor(data: ProductsTableItem[], paginator: MatPaginator, sort: MatSort) {
+    if (data != null) {
+      super(data);
+    } else {
+      super(EXAMPLE_DATA);
+    }
     this.sort = sort;
     this.paginator = paginator;
   }
