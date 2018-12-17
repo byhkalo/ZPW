@@ -1,15 +1,15 @@
 <mat-toolbar color="primary">
-    <button
-      type="button"
-      aria-label="Toggle sidenav"
-      mat-icon-button
-      (click)="drawer.toggle()"
-      >
-      <!-- *ngIf="isHandset$ | async" -->
-      <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-    </button>
-    <span>AdminWebApplication</span>
-  </mat-toolbar>
+  <button
+    type="button"
+    aria-label="Toggle sidenav"
+    mat-icon-button
+    (click)="drawer.toggle()"
+    >
+    <!-- *ngIf="isHandset$ | async" -->
+    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+  </button>
+  <span>AdminWebApplication</span>
+</mat-toolbar>
 
 <mat-sidenav-container class="sidenav-container">
   <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
@@ -18,9 +18,15 @@
       [opened]="!(isHandset$ | async)">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
-      <a mat-list-item href="#">Link 3</a>
+      <div>
+        <button class="menuButton" mat-raised-button color="primary" (click)="openDashboard()">Dashboard</button>
+      </div>
+      <div>
+        <button class="menuButton" mat-raised-button color="primary" (click)="openProducts()">Products</button>
+      </div>
+      <div>
+        <button class="menuButton" mat-raised-button color="primary" (click)="openOrders()">Orders</button>
+      </div>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

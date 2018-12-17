@@ -72,6 +72,7 @@ import {
   MatFormFieldModule,
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -147,13 +148,15 @@ import { FormsModule } from '@angular/forms';
 
     FormsModule,
     NgxMaterialTimepickerModule.forRoot(),
+    HttpClientModule,
   ],
   
   providers: [AuthGuard],
   bootstrap: [AppComponent],
   entryComponents: [
     PromotionDialog,
-    ProductComponent
+    ProductComponent,
+    OrderComponent
   ]
 })
 export class AppModule { }

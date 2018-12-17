@@ -11,16 +11,9 @@ import { ProductsTableComponent } from './products-table/products-table.componen
 const routes: Routes = [
   // { path: "", redirectTo: "dashboard", pathMatch: "full" },
   { path: "login", component: LoginComponent},
-  { path: "ordersDashboard", component: OrdersDashboardComponent },
-  { path: "productsDashboard", component: ProductsTableComponent },
-  { path: "dashboard", component: MainDashboardComponent,
-    canActivate: [AuthGuard],
-    children: [
-      { path: "", redirectTo: "orders", pathMatch: "full" },
-      { path: "orders", component: OrdersComponent },
-      { path: "products", component: ProductsComponent }
-    ]
-  },
+  { path: "dashboard", component: OrdersDashboardComponent },
+  { path: "products", component: ProductsTableComponent },
+  { path: "orders", component: OrdersComponent },
   { path: "**", redirectTo: "dashboard", pathMatch: "full" }
 ];
 

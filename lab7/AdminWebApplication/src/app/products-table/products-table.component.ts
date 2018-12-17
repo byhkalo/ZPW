@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild, Inject } from '@angular/core';
-import { MatPaginator, MatSort, MatDialog } from '@angular/material';
-import { ProductsTableDataSource, ProductsTableDS, ProductsTableItem } from './products-table-datasource';
+import { MatPaginator, MatSort, MatDialog, MatDialogRef } from '@angular/material';
+import { ProductsTableDS } from './products-table-datasource';
 import { SelectionModel } from '@angular/cdk/collections';
 import {MAT_DIALOG_DATA} from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 import { ProductComponent } from '../product/product.component';
 import { Product } from 'src/models/product.model';
+import { ProductsService } from 'src/services/products.service';
+import { PromotionsService } from 'src/services/promotions.service';
 
 
 @Component({
@@ -21,30 +23,31 @@ export class ProductsTableComponent implements OnInit {
   // dataSource: ProductsTableDataSource;
   dataSource: ProductsTableDS;
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['id', 'image', 'name', 'price', 'count', 'select'];
+  displayedColumns = ['id', 'image', 'name', 'category', 'price', 'count', 'select'];
   // Promotion
-  selection = new SelectionModel<ProductsTableItem>(true, []);
+  selection = new SelectionModel<Product>(true, []);
   promotionValue: number = 0;
   promotionDuration: number = 0;
-constructor(public dialog: MatDialog) {}
+constructor(public dialog: MatDialog, private productsService: ProductsService) {}
   ngOnInit() {
     // this.dataSource = new ProductsTableDataSource(this.paginator, this.sort);
-    this.dataSource = new ProductsTableDS(null, this.paginator, this.sort);
+    this.dataSource = new ProductsTableDS([], this.paginator, this.sort);
+    this.productsService.getProducts().subscribe(allProducts => {
+      this.dataSource.data = allProducts;
+    });
   }
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-  selectRow(row: ProductsTableItem) {
-    console.log(row);
-    let product = { id: 12, name: 'iPhone #1',
-      category: 'Smartphones', 
-      description: 'Some Long descroiptiong skdm fd dc dhsfkjsdfndskjfdsf sdkjfds fkds',
-      count: 39, price: 230, imageUrl: 'https://images.pexels.com/photos/257840/pexels-photo-257840.jpeg'}
+  createNewProduct() {
+    this.selectRow(null)
+  }
+  selectRow(row: Product) {
     const dialogRef = this.dialog.open(ProductComponent, 
       { 
         width: '1000px', 
         height: '650px',
-        data: product
+        data: row
       });
     
     dialogRef.afterClosed().subscribe(result => {
@@ -62,7 +65,7 @@ constructor(public dialog: MatDialog) {}
         this.dataSource.data.forEach(row => this.selection.select(row));
   }
   openPromotionDialog() {
-    const dialogRef = this.dialog.open(PromotionDialog, {width: '700px', height: '550px',
+    const dialogRef = this.dialog.open(PromotionDialog, {width: '700px', height: '600px',
         data: {
           selections: this.selection.selected, 
           value: this.promotionValue, 
@@ -71,10 +74,19 @@ constructor(public dialog: MatDialog) {}
       });
     
     dialogRef.afterClosed().subscribe(result => {
+      if (result==true) {
+        this.selection.clear()
+      }
       console.log(`Dialog result: ${result}`);
     });
   }
 }
+
+
+/// ------------------------------------------------
+/// ------------------------------------------------
+/// ------------------------------------------------
+
 
 @Component({
   selector: 'promotion-dialog',
@@ -89,13 +101,61 @@ export class PromotionDialog {
 
   value = 0;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
+  dateValue: Date;
+  timeValue: Date;
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, public dialogRef: MatDialogRef<PromotionDialog>,
+  private promotionsService: PromotionsService) {
     console.log(data.selections);
     this.dataSource = new ProductsTableDS(data.selections, this.paginator, null);
+    let dateNow= new Date();
+    this.dateValue = dateNow;
+    this.timeValue = dateNow;
+    // this.timeValue = 
   }
 
   formatLabel(value: number | null) {
     return value ? value + '%' : 0 + '%';
   }
   
+  minutesChanged(value: string) {
+    let minutesNumber = Number(value).valueOf()
+    console.log('minutes = ' + minutesNumber)
+    var currentDate = Math.floor(Date.now() /1000);
+    console.log('currentDate = ' + currentDate)
+    currentDate = currentDate + (minutesNumber*60)
+    console.log('currentDate + minutes = ' + currentDate)
+    let futureDate = new Date(currentDate*1000);
+    this.dateValue = futureDate;
+    this.timeValue = futureDate;
+  }
+
+  makePromotion() {
+    console.log('dataValue = ' + this.dateValue);
+    console.log('timeValue = ' + this.timeValue);
+    var promotionFinalDate = this.dateValue
+    let timestamp: any = this.timeValue.valueOf()
+     
+    var hours: number;
+    var minutes: number;
+    console.log('timestamp = ' + timestamp);
+    console.log('Type = ' + typeof(timestamp));
+    if (typeof(timestamp) == 'string') {
+      console.log('timestamp is NaN');
+      hours = Number(String(this.timeValue).split(':')[0]);
+      minutes = Number(String(this.timeValue).split(':')[1]);
+    } else {
+      console.log('timestamp is NOT NaN');
+      hours = this.timeValue.getHours()
+      minutes = this.timeValue.getMinutes()
+    }
+    
+    console.log('getHours = ' + hours);
+    console.log('getMinutes = ' + minutes);
+    promotionFinalDate.setHours(hours, minutes)
+    console.log('promotionFinalDate = ' + promotionFinalDate);
+    this.promotionsService.createPromotionForProducts(this.dataSource.data, promotionFinalDate, this.value);
+    // promotionsService.crea
+    this.dialogRef.close(true);
+  }
 }

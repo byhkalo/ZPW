@@ -1,4 +1,6 @@
+import { MatSortable } from "@angular/material";
+
 export class SortType {
-    id: number;
     title: string;
+    matSortable: MatSortable;
 }

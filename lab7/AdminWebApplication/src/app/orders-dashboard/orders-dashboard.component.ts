@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { ServerSettingService } from 'src/services/server.setting.service';
 
 @Component({
   selector: 'app-orders-dashboard',
@@ -9,25 +10,20 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 })
 export class OrdersDashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: 'Card 1', cols: 1, rows: 1 },
-          { title: 'Card 2', cols: 1, rows: 1 },
-          { title: 'Card 3', cols: 1, rows: 1 },
-          { title: 'Card 4', cols: 1, rows: 1 }
-        ];
-      }
 
-      return [
-        { title: 'Card 1', cols: 2, rows: 1 },
-        { title: 'Card 2', cols: 1, rows: 1 },
-        { title: 'Card 3', cols: 1, rows: 2 },
-        { title: 'Card 4', cols: 1, rows: 1 }
-      ];
-    })
-  );
+  isFirebaseServer: boolean | null = null;
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(private breakpointObserver: BreakpointObserver, private serverSettingService: ServerSettingService) {
+    serverSettingService.getServerTypeFirebaseObservable().subscribe(isFirebaseServer => {
+      this.isFirebaseServer = isFirebaseServer;
+    });
+  }
+
+  onToggle() {
+    console.log('toggle change = ' + this.isFirebaseServer);
+    if (this.serverSettingService.isFirebaseServer() != this.isFirebaseServer) {
+      this.serverSettingService.setServerType(this.isFirebaseServer);
+    }
+
+  }
 }

@@ -10,37 +10,10 @@ import { SortType } from '../../models/sortType';
 })
 export class SearchSortingComponent implements OnInit {
   
-  sortingType: SortType;
-  sortingTypes: Array<SortType>;
-  searchWord: String = '';
+  
 
   constructor(private productsService: ProductsService) { }
 
   ngOnInit() {
-    this.productsService.getAllSortingTypesObservable().subscribe(sortingTypes => {
-      this.sortingTypes = sortingTypes;
-    });
-    this.productsService.getSelectedSortingTypeObservable().subscribe(sortingType => {
-      this.sortingType = sortingType;
-    });
-    this.productsService.getSearchingWord().subscribe(searchWord => {
-      this.searchWord = searchWord;
-    })
-  }
-
-  searchBy(searchWord: String) {
-    console.log('searchWord ' + searchWord);
-    this.productsService.setSearchingWord(searchWord);
-    console.log('searchWord ' + searchWord);
-  }
-
-  sortingBy(sortType: SortType) {
-    this.productsService.setSortType(sortType); 
-    console.log('sort type ' + sortType.title);
-  }
-  resetSorting() {
-    console.log('reset sorting');
-    this.productsService.setSearchingWord('');
-    this.productsService.setSortType(this.sortingTypes[0]);
   }
 }

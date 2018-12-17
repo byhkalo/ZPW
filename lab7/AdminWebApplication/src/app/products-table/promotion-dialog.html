@@ -3,7 +3,7 @@
   
 
 
-<mat-grid-list cols="2" rowHeight="200px">
+<mat-grid-list cols="2" rowHeight="220px">
 
     <mat-grid-tile [colspan]="1" [rowspan]="2">
         <mat-card class="dashboard-card">
@@ -16,14 +16,25 @@
             <div>The promotion is valid until:</div>
             <div>Date</div>
             <mat-form-field>
-              <input matInput [matDatepicker]="myDatepicker" placeholder="Choose a date">
+              <input matInput [(ngModel)]="dateValue" [matDatepicker]="myDatepicker" placeholder="Choose a date">
               <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
               <mat-datepicker #myDatepicker></mat-datepicker>
             </mat-form-field>
             <div>Time</div>    
-            <input class="timeInput" placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24"  readonly>
+            <input  [(ngModel)]="timeValue" placeholder="24hr format" aria-label="24hr format" [ngxTimepicker]="fullTime" [format]="24">
             <ngx-material-timepicker #fullTime></ngx-material-timepicker>
             <ngx-material-timepicker #picker></ngx-material-timepicker> 
+            <div>Or Choose Short Time</div>
+            <mat-form-field>
+              <mat-select placeholder="Minutes" (selectionChange)="minutesChanged($event.value)">
+                <mat-option value="5"> 5 </mat-option>
+                <mat-option value="10"> 10 </mat-option>
+                <mat-option value="15"> 15 </mat-option>
+                <mat-option value="20"> 20 </mat-option>
+                <mat-option value="25"> 25 </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br>
             <div>Promotion Discount</div>
             <mat-form-field class="example-margin">
                 <input matInput type="number" placeholder="Discount" [(ngModel)]="value">
@@ -80,5 +91,5 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close>Cancel</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true">Make Promotion</button>
+  <button mat-raised-button color="primary" (click)="makePromotion()">Make Promotion</button>
 </mat-dialog-actions>

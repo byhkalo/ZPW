@@ -1,46 +1,19 @@
-<div class="row col-xl-12"> 
-        
-        
-    <div class="row col-12">
-        <div class="card border-info mb-3" style="max-width: 18rem;">
-            <div class="card-header">Categories</div>
-            <div class="card-body text-info">
-                <h5 *ngFor="let category of categoriesArray" class="card-title">
-                    <input type="checkbox" [checked]="categories.get(category)" (change)="changeCategory(category, $event)" >
-                    {{category}}
-                </h5>
-            </div>
-        </div>
+<mat-nav-list>
+
+    <div *ngFor="let category of categoriesArray">
+        <button class="menuButton" mat-raised-button  [color]= "categories.get(category) == true ? 'primary' : 'warn'" (click)="togleCategory(category)">{{category}}</button>
     </div>
     
-    <div class="row col-12">
-        <div class="card border-info mb-3" style="max-width: 18rem;">
-            <div class="card-header">Filters</div>
-            <div class="card-body text-info">
-                <div class="row">
-                    
-                </div>
-                <h5 class="card-title">Count</h5>
-                <div class="row">
-                    <ng5-slider [(value)]="currentMinCountBorder" [(highValue)]="currentMaxCountBorder" [options]="optionsCount"></ng5-slider>
-                </div>
-                <h5 class="card-title">Price</h5>
-                <div class="row">
-                    <ng5-slider [(value)]="currentMinPriceBorder" [(highValue)]="currentMaxPriceBorder" [options]="optionsPrice"></ng5-slider>
-                </div>
-                <div class="row">
-                    <h5 class="card-title"> Pagination </h5>
-                    <div class="dropdown">
-                        <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{pagination}}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <button *ngFor="let page of paginationTypes" class="dropdown-item" (click)="setPagination(star)">{{page}}</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="rangeSector" *ngIf="countRange != null">
+        <h5 class="card-title">Count</h5>
+        <ng5-slider class="sliderRange" [(value)]="countRange.minValue" [(highValue)]="countRange.maxValue" [options]="optionsCount"></ng5-slider>
     </div>
-</div>
-  
+    
+    <div class="rangeSector" *ngIf="priceRange != null">
+        <h5 class="card-title">Price</h5>
+        <ng5-slider class="sliderRange" [(value)]="priceRange.minValue" [(highValue)]="priceRange.maxValue" [options]="optionsPrice"></ng5-slider>
+    </div>
+</mat-nav-list>
+
+
+

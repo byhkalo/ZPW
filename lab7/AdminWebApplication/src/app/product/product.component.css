@@ -30,3 +30,8 @@
   .example-full-width {
     width: 100%;
   }
+  .productImage {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+  }

@@ -24,6 +24,54 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+
+import {DragDropModule} from '@angular/cdk/drag-drop';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+import {CdkTableModule} from '@angular/cdk/table';
+import {
+  MatAutocompleteModule,
+  MatBadgeModule,
+  MatBottomSheetModule,
+  MatButtonModule,
+  MatButtonToggleModule,
+  MatCardModule,
+  MatCheckboxModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatDialogModule,
+  MatDividerModule,
+  MatExpansionModule,
+  MatGridListModule,
+  MatIconModule,
+  MatInputModule,
+  MatListModule,
+  MatMenuModule,
+  MatNativeDateModule,
+  MatPaginatorModule,
+  MatProgressBarModule,
+  MatProgressSpinnerModule,
+  MatRadioModule,
+  MatRippleModule,
+  MatSelectModule,
+  MatSliderModule,
+  MatSlideToggleModule,
+  MatSnackBarModule,
+  MatSortModule,
+  MatStepperModule,
+  MatTableModule,
+  MatTabsModule,
+  MatToolbarModule,
+  MatTooltipModule,
+  MatTreeModule,
+  MatFormFieldModule,
+  MatSidenavModule,
+} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { OrderFormComponent } from './order-form/order-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +84,9 @@ import { environment } from '../environments/environment';
     ProductComponent,
     BasketComponent,
     OrderComponent,
-    BasketProductComponent
+    BasketProductComponent,
+    ProductDetailComponent,
+    OrderFormComponent
   ],
   imports: [
     NgbModule.forRoot(),
@@ -47,17 +97,60 @@ import { environment } from '../environments/environment';
     AngularFireDatabaseModule,
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    BrowserAnimationsModule,
+
+    LayoutModule, 
+    
+    MatFormFieldModule,
+    CdkTableModule,
+    DragDropModule,
+    MatAutocompleteModule,
+    MatBadgeModule,
+    MatBottomSheetModule,
+    MatButtonModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatChipsModule,
+    MatStepperModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatInputModule,
+    MatListModule,
+    MatMenuModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatRippleModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
+    MatTreeModule,
+    ScrollingModule,    
+
+    FormsModule, ReactiveFormsModule,
+
+  ],
+  entryComponents: [
+    ProductDetailComponent,
+    OrderFormComponent
   ],
   providers: [ProductsService],
   bootstrap: [
-    AppComponent,
-    ProductsComponent,
-    MainShopComponentComponent,
-    AdvertiseComponent,
-    HeaderShopComponent,
-    SearchSortingComponent,
-    FiltersComponent,
-    ProductComponent]
+    AppComponent],
 })
 export class AppModule { }

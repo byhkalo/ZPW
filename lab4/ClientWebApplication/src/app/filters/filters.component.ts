@@ -9,21 +9,19 @@ import { Options, LabelType } from 'ng5-slider';
 })
 export class FiltersComponent implements OnInit {
 
-  categories: Map<String, Boolean>;
+  categories: Map<String, boolean>;
   categoriesArray: Array<String>;
   
-  maxCount: number;
-  minCount: number;
-  currentMaxCountBorder: Number;
-  currentMinCountBorder: Number;
+  maxCount: number = 0;
+  minCount: number = 0;
+  countRange: {minValue: number, maxValue: number} | null = null
 
-  minPrice: number;
-  maxPrice: number;
-  currentMinPriceBorder: Number;
-  currentMaxPriceBorder: Number;
+  minPrice: number = 0;
+  maxPrice: number = 0;
+  priceRange: {minValue: number, maxValue: number} | null = null
 
-  pagination: Number;
-  paginationTypes: Array<Number>;
+  pagination: number;
+  paginationTypes: Array<number>;
 
   optionsCount: Options = {
     floor: this.minCount,
@@ -31,16 +29,22 @@ export class FiltersComponent implements OnInit {
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
-          this.currentMinCountBorder = value;
-          this.productsService.setCountRange(value, this.currentMaxCountBorder);
+          this.countRange.minValue = value;
+          this.productsService.setCountRange(value, this.countRange.maxValue);
           return '<b>'+ value + '</b>';
         case LabelType.High:
-          this.currentMaxCountBorder = value;
-          this.productsService.setCountRange(this.currentMinCountBorder, value);
+          this.countRange.maxValue = value;
+          this.productsService.setCountRange(this.countRange.minValue, value);
           return '<b>'+ value + '</b>';
         default:
           return '' + value;
       }
+    },
+    getSelectionBarColor: (value: number): string => {
+      return '#3f51b5';
+    },
+    getPointerColor: (value: number): string => {
+      return '#3f51b5';
     }
   };
   optionsPrice: Options = {
@@ -49,16 +53,22 @@ export class FiltersComponent implements OnInit {
     translate: (value: number, label: LabelType): string => {
       switch (label) {
         case LabelType.Low:
-          this.currentMinPriceBorder = value;
-          this.productsService.setPriceRange(value, this.currentMaxPriceBorder);
+          this.priceRange.minValue = value;
+          this.productsService.setPriceRange(value, this.priceRange.maxValue);
           return '<b>'+ value + 'zł</b>';
         case LabelType.High:
-          this.currentMaxPriceBorder = value;
-          this.productsService.setPriceRange(this.currentMinPriceBorder, value);
+          this.priceRange.maxValue = value;
+          this.productsService.setPriceRange(this.priceRange.minValue, value);
           return '<b>'+ value + 'zł</b>';
         default:
           return value + 'Zł';
       }
+    },
+    getSelectionBarColor: (value: number): string => {
+      return '#3f51b5';
+    },
+    getPointerColor: (value: number): string => {
+      return '#3f51b5';
     }
   };
 
@@ -70,38 +80,35 @@ export class FiltersComponent implements OnInit {
       this.categoriesArray = Array.from(allCategories.keys());
     });
     this.productsService.getSelectedCountRangeObservable().subscribe(countRange => {
-      this.maxCount = this.productsService.maxCount();
-      this.minCount = this.productsService.minCount();
-      this.currentMaxCountBorder = countRange.maxValue;
-      this.currentMinCountBorder = countRange.minValue;
-      this.optionsCount.floor = this.minCount;
-      this.optionsCount.ceil = this.maxCount;
+      if (countRange != null) {
+        this.maxCount = this.productsService.maxCount();
+        this.minCount = this.productsService.minCount();
+        this.countRange = countRange
+        this.optionsCount.floor = this.minCount;
+        this.optionsCount.ceil = this.maxCount;
+      }
     });
     this.productsService.getSelectedPriceRangeObservable().subscribe(priceRange => {
-      this.minPrice = this.productsService.minPrice();
-      this.maxPrice = this.productsService.maxPrice();
-      this.currentMinPriceBorder = priceRange.minValue;
-      this.currentMaxPriceBorder = priceRange.maxValue;
-      this.optionsPrice.floor = this.minPrice;
-      this.optionsPrice.ceil = this.maxPrice;
-    });
-    this.productsService.getAllPaginationTypesObservable().subscribe(paginationTypes => {
-      this.paginationTypes = paginationTypes;
-    });
-    this.productsService.getSelectedPaginationTypeObservable().subscribe(selectedPagination => {
-      this.pagination = selectedPagination;
+      if (priceRange != null) {
+        this.minPrice = this.productsService.minPrice();
+        this.maxPrice = this.productsService.maxPrice();
+        this.priceRange = priceRange;
+        this.optionsPrice.floor = this.minPrice;
+        this.optionsPrice.ceil = this.maxPrice;
+      }
     });
   }
 
-  changeCategory(category: String, values: any) {
-    if (values.currentTarget.checked) {
+  togleCategory(category: string) {
+    this.categories.set(category, !this.categories.get(category))
+    this.changeCategory(category, this.categories.get(category))
+  }
+
+  changeCategory(category: String, value: boolean) {
+    if (value) {
       this.productsService.selectCategory(category);
     } else {
       this.productsService.deselectCategory(category);
     }
-  }
-
-  setPagination(pagiantionValue: Number) {
-    this.productsService.selectPaginationType(pagiantionValue);
   }
 }
