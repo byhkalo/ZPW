@@ -3,14 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+
 import { LoginComponent } from './login/login.component';
-import { MenuComponent } from './menu/menu.component';
-import { ProductsComponent } from './products/products.component';
+
+
 import { ProductComponent } from './product/product.component';
-import { CategoryComponent } from './category/category.component';
-import { ProductsMenuComponent } from './products-menu/products-menu.component';
-import { OrdersMenuComponent } from './orders-menu/orders-menu.component';
 
 import { Ng5SliderModule } from 'ng5-slider';
 import { AngularFireModule } from '@angular/fire';
@@ -19,7 +16,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from '../environments/environment';
-import { MainDashboardComponent } from './main-dashboard/main-dashboard.component';
+
 import { OrdersComponent } from './orders/orders.component';
 import { OrderComponent } from './order/order.component';
 import { AuthGuard } from 'src/services/auth.guard';
@@ -77,15 +74,11 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
+    
     LoginComponent,
-    MenuComponent,
-    ProductsComponent,
+    
     ProductComponent,
-    CategoryComponent,
-    ProductsMenuComponent,
-    OrdersMenuComponent,
-    MainDashboardComponent,
+    
     OrdersComponent,
     OrderComponent,
     BaseNavigationComponent,

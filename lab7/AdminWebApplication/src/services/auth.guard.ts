@@ -3,6 +3,7 @@ import { CanActivate } from '@angular/router/src/utils/preactivation';
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { AuthService } from './auth.service';
+import { map } from 'rxjs/operators';
 
 @Injectable({providedIn: 'root'})
 
@@ -14,15 +15,31 @@ export class AuthGuard implements CanActivate {
     constructor(private authService: AuthService, private router: Router) {
     }
 
-    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         console.log('ROUTER GUARD + ' + next);
-        if (this.authService.isLoggedInApplication()) {
-            console.log('User Logged');
-            return true;
-        } else {
-            console.log('Please Log In');
-            this.router.navigate(['/login']);
-            return false;
-        }
+        return this.authService.authState().pipe(map(state => {
+            if (state != null) {
+                console.log('User Logged');
+                return true;
+            } else {
+                console.log('Please Log In');
+                this.router.navigate(['/login']);
+                return false;
+            }
+        }));
     }
+
+    // canActivate(
+    //     next: ActivatedRouteSnapshot,
+    //     state: RouterStateSnapshot): Observable<boolean> {
+    
+    //       return this.authService.authState()
+    //        .map(user => !!user)
+    //        .do(loggedIn => {
+    //          if (!loggedIn) {
+    //            console.log("access denied")
+    //            this.router.navigate(['/login']);
+    //          }
+    //      })
+    //    }
 }

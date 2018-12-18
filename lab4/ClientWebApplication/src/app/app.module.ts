@@ -6,14 +6,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProductsComponent } from './products/products.component';
 import { MainShopComponentComponent } from './main-shop-component/main-shop-component.component';
-import { AdvertiseComponent } from './advertise/advertise.component';
-import { HeaderShopComponent } from './header-shop/header-shop.component';
-import { SearchSortingComponent } from './search-sorting/search-sorting.component';
 import { FiltersComponent } from './filters/filters.component';
 import { ProductComponent } from './product/product.component';
 import { BasketComponent } from './basket/basket.component';
-import { OrderComponent } from './order/order.component';
-import { BasketProductComponent } from './basket-product/basket-product.component';
 import { ProductsService } from 'src/services/product.service';
 
 import { Ng5SliderModule } from 'ng5-slider';
@@ -77,14 +72,9 @@ import { OrderFormComponent } from './order-form/order-form.component';
     AppComponent,
     ProductsComponent,
     MainShopComponentComponent,
-    AdvertiseComponent,
-    HeaderShopComponent,
-    SearchSortingComponent,
     FiltersComponent,
     ProductComponent,
     BasketComponent,
-    OrderComponent,
-    BasketProductComponent,
     ProductDetailComponent,
     OrderFormComponent
   ],

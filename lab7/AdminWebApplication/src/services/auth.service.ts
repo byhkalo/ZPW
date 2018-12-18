@@ -3,6 +3,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { Observable, observable, Subscription } from "rxjs";
 import { User } from "src/models/user.model";
 import { AngularFireDatabase } from "@angular/fire/database";
+import { auth } from "firebase";
 
 @Injectable({providedIn: 'root'})
 
@@ -14,14 +15,17 @@ export class AuthService {
 
     logInWithEmailAndPassword(email: string, password: string): Observable<firebase.User> {
         return new Observable(observable => {
-            this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(credential => {
-                console.log('CREDENTIAN = ' + credential)
-                if (credential.user != null) {
-                    this.connectToCurrentUser(credential.user.providerId);
-                }
-                observable.next(credential.user);
-            }).catch(error => {
-                console.log('catch ERROR' + error);
+            const session = auth.Auth.Persistence.SESSION
+            this.firebaseAuth.auth.setPersistence(session).then(() => {
+                this.firebaseAuth.auth.signInWithEmailAndPassword(email, password).then(credential => {
+                    console.log('CREDENTIAN = ' + credential)
+                    if (credential.user != null) {
+                        this.connectToCurrentUser(credential.user.providerId);
+                    }
+                    observable.next(credential.user);
+                }).catch(error => {
+                    console.log('catch ERROR' + error);
+                });
             });
         });
     }
@@ -31,6 +35,10 @@ export class AuthService {
         .valueChanges().subscribe(dbUser => {
             this.currentUser = dbUser;
         });
+    }
+
+    authState(): Observable<firebase.User | null> {
+        return this.firebaseAuth.authState;
     }
 
     logOut() {
@@ -62,8 +70,8 @@ export class AuthService {
     }
 
     isLoggedInApplication(): boolean {
-        console.log('Firebase User' + this.firebaseAuth.user);
-        return (this.firebaseAuth.user != null);
+        console.log('Firebase User' + this.firebaseAuth.auth.currentUser);
+        return (this.firebaseAuth.auth.currentUser != null);
     }
 
 }
